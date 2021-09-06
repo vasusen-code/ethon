@@ -3,7 +3,3 @@ async def mention(bot, id):
     x = a.first_name
     return f'[{x}](tg://user?id={id})'
     
-def name(x):
-    file = x.media
-    name = x.file.name
-    return name
