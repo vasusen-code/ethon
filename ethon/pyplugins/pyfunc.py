@@ -12,7 +12,7 @@ General Public License for more details.
 
 License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENSE > ."""
 
-#vasusen-code/maahi/shah/thechariotoflight/dronebots
+#vasusen-code/thechariotoflight/dronebots
 #__TG:ChauhanMahesh__
 
 import subprocess 
