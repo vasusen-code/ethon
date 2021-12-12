@@ -12,8 +12,13 @@ License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENS
 #vasusen-code/thechariotoflight/dronebots
 #__TG:ChauhanMahesh__
 
+import os
 import pathlib
 
+#rename files
+def rename(source, output):
+    os.rename(source, output)
+    
 #get file extension using path of file
 def file_extension(file_path):
     extension = pathlib.Path(f'{file_path}').suffix 
