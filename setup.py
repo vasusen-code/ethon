@@ -1,17 +1,8 @@
 import re
 import os
 import setuptools
-import subprocess
 
-ethonVer = (
-    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
-    .stdout.decode("utf-8")
-    .strip()
-)
-
-assert os.path.isfile("ethon/version.py")
-with open("ethon/VERSION", "w", encoding="utf-8") as fh:
-    fh.write(f"{ethonVer}\n")
+ver = 'v0.0.3.5'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -42,7 +33,7 @@ requirements = [
 
 setuptools.setup(
     name=name,
-    version=ethonVer,
+    version=ver,
     author=author,
     author_email=author_email,
     description=description,
@@ -51,6 +42,7 @@ setuptools.setup(
     url=url,
     license=license,
     packages=setuptools.find_packages(),
+    py_modules=['ethon'],
     install_requires=requirements,
     classifiers=classifiers,
     python_requires=">=3.6",
