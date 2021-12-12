@@ -5,15 +5,12 @@ import setuptools
 ver = 'v0.0.3.9'
 
 with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+    long_desc = fh.read()
 
-name = "ethon"
-author = "vasusen-code"
-author_email = "maahisnu144@gmail.com"
-description = "Package containing basic functions to build telegram bots."
-license = "GNU AFFERO GENERAL PUBLIC LICENSE (v3)"
-url = "https://github.com/vasusen-code/ethon"
-classifiers = [
+desc = "Package containing basic functions to build telegram bots."
+GPL = "GNU AFFERO GENERAL PUBLIC LICENSE (v3)"
+git = "https://github.com/vasusen-code/ethon"
+classify = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
@@ -30,20 +27,19 @@ requirements = [
 ]
 
 
-
 setuptools.setup(
-    name=name,
+    name="ethon",
     version=ver,
-    author=author,
-    author_email=author_email,
-    description=description,
-    long_description=long_description,
+    author="vasusen-code",
+    author_email="maahikarn7gmail.com",
+    description=desc,
+    long_description=long_desc,
     long_description_content_type="text/markdown",
-    url=url,
-    license=license,
+    url=git,
+    license=GPL,
     packages=setuptools.find_packages(),
     py_modules=['ethon'],
     install_requires=requirements,
-    classifiers=classifiers,
+    classifiers=classify,
     python_requires=">=3.6",
 )
