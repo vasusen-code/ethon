@@ -1,4 +1,4 @@
-#ETHON
+# eThon
 
 package built for personal use, but can be used by public.
 
