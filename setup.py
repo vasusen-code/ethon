@@ -24,11 +24,12 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 requirements = [
-    "python-decouple"
-    "telethon"
+    "python-decouple",
+    "telethon",
     "aiofiles",
-    "aiohttp"
+    "aiohttp",
 ]
+
 
 
 setuptools.setup(
