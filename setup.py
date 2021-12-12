@@ -8,7 +8,7 @@ ethonVer = (
     .stdout.decode("utf-8")
     .strip()
 )
-assert "." in ethonVer
+
 assert os.path.isfile("ethon/version.py")
 with open("ethon/VERSION", "w", encoding="utf-8") as fh:
     fh.write(f"{ethonVer}\n")
