@@ -24,6 +24,7 @@ requirements = [
     "telethon",
     "aiofiles",
     "aiohttp",
+    "opencv-python-headless",
 ]
 
 
