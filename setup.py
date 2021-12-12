@@ -1,9 +1,17 @@
 import re
 
 import setuptools
+import subprocess
 
-with open("ethon/version.py", "rt", encoding="utf8") as x:
-    version = re.search(r'__version__ = "(.*?)"', x.read()).group(1)
+ethonVer = (
+    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
+    .stdout.decode("utf-8")
+    .strip()
+)
+
+assert os.path.isfile("ethon/version.py")
+with open("ethon/VERSION", "w", encoding="utf-8") as fh:
+    fh.write(f"{ethonVer}\n")
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
