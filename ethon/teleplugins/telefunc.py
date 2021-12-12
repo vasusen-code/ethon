@@ -1,4 +1,9 @@
 import math
+import time
+from ethon.utils.FasterTg import upload_file, download_file
+from telethon import events
+
+#Fast upload/download methods:
 
 def time_formatter(milliseconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
@@ -30,6 +35,34 @@ def hbs(size):
         size /= power
         raised_to_pow += 1
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+
+async def progress(current, total, event, start, type_of_ps, file=None):
+    now = time.time()
+    diff = now - start
+    if round(diff % 10.00) == 0 or current == total:
+        percentage = current * 100 / total
+        speed = current / diff
+        time_to_completion = round((total - current) / speed) * 1000
+        progress_str = "`[{0}{1}] {2}%`\n\n".format(
+            "".join(["█" for i in range(math.floor(percentage / 5))]),
+            "".join(["" for i in range(20 - math.floor(percentage / 5))]),
+            round(percentage, 2),
+        )
+        tmp = (
+            progress_str
+            + "{0} of {1}\n\nSpeed: {2}/s\n\nETA: {3}\n\n".format(
+                hbs(current),
+                hbs(total),
+                hbs(speed),
+                time_formatter(time_to_completion),
+            )
+        )
+        if file:
+            await event.edit(
+                "{}\n\n`File Name: {}\n\n{}".format(type_of_ps, file, tmp)
+            )
+        else:
+            await event.edit("{}\n\n{}".format(type_of_ps, tmp))
 
 #Why these methods? : Using progress of telethon makes upload/download slow due to callbacks
 #these method allows to upload/download in fastest way with progress bars.
@@ -70,32 +103,3 @@ async def fast_download(filename, file, bot, event, taime, msg):
         )
     return result
   
-async def progress(current, total, event, start, type_of_ps, file=None):
-    now = time.time()
-    diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
-        percentage = current * 100 / total
-        speed = current / diff
-        time_to_completion = round((total - current) / speed) * 1000
-        progress_str = "`[{0}{1}] {2}%`\n\n".format(
-            "".join(["█" for i in range(math.floor(percentage / 5))]),
-            "".join(["" for i in range(20 - math.floor(percentage / 5))]),
-            round(percentage, 2),
-        )
-        tmp = (
-            progress_str
-            + "{0} of {1}\n\nSpeed: {2}/s\n\nETA: {3}\n\n".format(
-                hbs(current),
-                hbs(total),
-                hbs(speed),
-                time_formatter(time_to_completion),
-            )
-        )
-        if file:
-            await event.edit(
-                "{}\n\n`File Name: {}\n\n{}".format(type_of_ps, file, tmp)
-            )
-        else:
-            await event.edit("{}\n\n{}".format(type_of_ps, tmp))
-
-            
