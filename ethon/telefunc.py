@@ -1,6 +1,9 @@
 import math
 import time
+import asyncio
+
 from .FasterTg import upload_file, download_file
+
 from telethon import events
 
 #Fast upload/download methods:
