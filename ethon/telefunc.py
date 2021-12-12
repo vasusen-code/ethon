@@ -1,6 +1,6 @@
 import math
 import time
-from ethon.utils.FasterTg import upload_file, download_file
+from .FasterTg import upload_file, download_file
 from telethon import events
 
 #Fast upload/download methods:
