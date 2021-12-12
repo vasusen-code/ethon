@@ -88,7 +88,7 @@ async def fast_upload(file, name, time, bot, event, msg):
         )
     return result
   
-async def fast_download(filename, file, bot, event, taime, msg):
+async def fast_download(filename, file, bot, event, time, msg):
     with open(filename, "wb") as fk:
         result = await download_file(
             client=bot,
@@ -99,7 +99,7 @@ async def fast_download(filename, file, bot, event, taime, msg):
                     d,
                     t,
                     event,
-                    taime,
+                    time,
                     msg,
                 ),
             ),
