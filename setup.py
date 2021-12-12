@@ -37,7 +37,6 @@ setuptools.setup(
     url=git,
     license=GPL,
     packages=setuptools.find_packages(),
-    py_modules=['ethon'],
     install_requires=requirements,
     classifiers=classify,
     python_requires=">=3.6",
