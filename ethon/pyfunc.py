@@ -1,4 +1,4 @@
-"""This file is part of the CompressorBot distribution.
+"""This file is part of the ethon distribution.
 Copyright (c) 2021 vasusen-code
 
 This program is free software: you can redistribute it and/or modify
