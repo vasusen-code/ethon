@@ -16,8 +16,12 @@ License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENS
 #__TG:ChauhanMahesh__
 from telethon import events
 
+#to mention 
 async def mention(bot, id):
     a = await bot.get_entity(int(id))
     x = a.first_name
     return f'[{x}](tg://user?id={id})'
+
+#Forcesub
+async def forcesub(bot, channel_id):
     
