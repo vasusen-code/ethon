@@ -22,6 +22,3 @@ async def mention(bot, id):
     x = a.first_name
     return f'[{x}](tg://user?id={id})'
 
-#Forcesub
-async def forcesub(bot, channel_id):
-    
