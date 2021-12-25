@@ -80,7 +80,7 @@ async def fast_upload(file, name, time, bot, event, msg):
         result = await upload_file(
             client=bot,
             file=f,
-            name=name,
+            filename=name,
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
                 progress(
                     d,
