@@ -6,6 +6,10 @@ from .FasterTg import upload_file, download_file
 
 from telethon import events
 
+"""
+--------------------------------------------------------------------------------
+(c) Ultroid for fast_upload and fast_download
+"""
 #Fast upload/download methods:
 
 def time_formatter(milliseconds: int) -> str:
@@ -105,4 +109,6 @@ async def fast_download(filename, file, bot, event, time, msg):
             ),
         )
     return result
-  
+"
+---------------------------------------------------------------------------------
+"
