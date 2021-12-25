@@ -70,6 +70,7 @@ async def progress(current, total, event, start, type_of_ps, file=None):
             )
         else:
             await event.edit("{}\n\n{}".format(type_of_ps, tmp))
+            
 
 #Why these methods? : Using progress of telethon makes upload/download slow due to callbacks
 #these method allows to upload/download in fastest way with progress bars.
