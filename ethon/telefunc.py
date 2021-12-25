@@ -109,6 +109,6 @@ async def fast_download(filename, file, bot, event, time, msg):
             ),
         )
     return result
-"
+"""
 ---------------------------------------------------------------------------------
-"
+"""
