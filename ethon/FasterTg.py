@@ -1,10 +1,8 @@
-"""
-> Based on parallel_file_transfer.py from mautrix-telegram, with permission to distribute under the MIT license
-> Copyright (C) 2019 Tulir Asokan - https://github.com/tulir/mautrix-telegram
-"""
+# copied from https://github.com/tulir/mautrix-telegram/blob/master/mautrix_telegram/util/parallel_file_transfer.py
+# Copyright (C) 2021 Tulir Asokan
+
 import asyncio
 import hashlib
-import inspect
 import logging
 import math
 import os
@@ -22,6 +20,7 @@ from typing import (
 
 from telethon import TelegramClient, helpers, utils
 from telethon.crypto import AuthKey
+from telethon.helpers import _maybe_await
 from telethon.network import MTProtoSender
 from telethon.tl.alltlobjects import LAYER
 from telethon.tl.functions import InvokeWithLayerRequest
@@ -45,9 +44,7 @@ from telethon.tl.types import (
     TypeInputFile,
 )
 
-filename = ""
-
-log: logging.Logger = logging.getLogger("FastTelethon")
+log: logging.Logger = logging.getLogger("FasterTg")
 
 TypeLocation = Union[
     Document,
@@ -166,11 +163,12 @@ class ParallelTransferrer:
 
     @staticmethod
     def _get_connection_count(
-        file_size: int, max_count: int = 20, full_size: int = 100 * 1024 * 1024
+        file_size: int,
     ) -> int:
+        full_size = 100 * (1024 ** 2)
         if file_size > full_size:
-            return max_count
-        return math.ceil((file_size / full_size) * max_count)
+            return 20
+        return math.ceil((file_size / full_size) * 20)
 
     async def _init_download(
         self, connections: int, file: TypeLocation, part_count: int, part_size: int
@@ -277,7 +275,7 @@ class ParallelTransferrer:
         connection_count = connection_count or self._get_connection_count(file_size)
         part_size = (part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
         part_count = (file_size + part_size - 1) // part_size
-        is_large = file_size > 10 * 1024 * 1024
+        is_large = file_size > 10 * (1024 ** 2)
         await self._init_upload(connection_count, file_id, part_count, is_large)
         return part_size, part_count, is_large
 
@@ -302,9 +300,7 @@ class ParallelTransferrer:
 
         part = 0
         while part < part_count:
-            tasks = []
-            for sender in self.senders:
-                tasks.append(self.loop.create_task(sender.next()))
+            tasks = [self.loop.create_task(sender.next()) for sender in self.senders]
             for task in tasks:
                 data = await task
                 if not data:
@@ -328,7 +324,10 @@ def stream_file(file_to_stream: BinaryIO, chunk_size=1024):
 
 
 async def _internal_transfer_to_telegram(
-    client: TelegramClient, response: BinaryIO, progress_callback: callable
+    client: TelegramClient,
+    response: BinaryIO,
+    filename: str,
+    progress_callback: callable,
 ) -> Tuple[TypeInputFile, int]:
     file_id = helpers.generate_random_long()
     file_size = os.path.getsize(response.name)
@@ -339,12 +338,10 @@ async def _internal_transfer_to_telegram(
     buffer = bytearray()
     for data in stream_file(response):
         if progress_callback:
-            r = progress_callback(response.tell(), file_size)
-            if inspect.isawaitable(r):
-                try:
-                    await r
-                except BaseException:
-                    pass
+            try:
+                await _maybe_await(progress_callback(response.tell(), file_size))
+            except BaseException:
+                pass
         if not is_large:
             hash_md5.update(data)
         if len(buffer) == 0 and len(data) == part_size:
@@ -382,22 +379,19 @@ async def download_file(
     async for x in downloaded:
         out.write(x)
         if progress_callback:
-            r = progress_callback(out.tell(), size)
-            if inspect.isawaitable(r):
-                try:
-                    await r
-                except BaseException:
-                    pass
-
+            try:
+                await _maybe_await(progress_callback(out.tell(), size))
+            except BaseException:
+                pass
     return out
 
 
 async def upload_file(
     client: TelegramClient,
     file: BinaryIO,
-    name,
+    filename: str,
     progress_callback: callable = None,
 ) -> TypeInputFile:
-    global filename
-    filename = name
-    return (await _internal_transfer_to_telegram(client, file, progress_callback))[0]
+    return (
+        await _internal_transfer_to_telegram(client, file, filename, progress_callback)
+    )[0]
