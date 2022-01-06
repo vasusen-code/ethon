@@ -14,8 +14,6 @@ License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENS
 
 import os
 import pathlib
-import yt_dlp
-from yt_dlp import YoutubeDL
 
 #rename files
 def rename(source, output):
@@ -36,7 +34,8 @@ def Q_length(List, limit):
         return length
     
 #Download videos from youtube
-def download_from_youtube(url):    
+def download_from_youtube(url):
+    import yt_dlp
     options = {
         "nocheckcertificate": True,
         "geo-bypass": True,
