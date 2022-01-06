@@ -9,15 +9,19 @@ def download_from_youtube(url):
         "prefer_ffmpeg": True,
         "nocheckcertificate": True,
         "geo-bypass": True,
-        "outtmpl": "%(title)s.mp4",
+        "outtmpl": "%(title)s.%(ext)s",
         "format": "best",
         "quiet": True }
     with yt_dlp.YoutubeDL(options) as ydl:
         ydl.download([url])
         info = ydl.extract_info(url, download=False)
         title = info.get("title", None)
-        file = title + ".mp4"
-        return file
+        ext = info.get("ext", None) 
+        try:
+            os.rename(video_title + '.' + video_ext, video_title + ".mp4")
+        except FileNotFoundError:
+            os.rename(video_title + '.' + video_ext * 2, video_title + ".mp4")
+        return video_title + ".mp4"
       
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
 
@@ -50,9 +54,12 @@ def ytdl(url):
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
-        return video_title + '.' + video_ext
-      
-      
+        try:
+            os.rename(video_title + '.' + video_ext, video_title + ".mp4")
+        except FileNotFoundError:
+            os.rename(video_title + '.' + video_ext * 2, video_title + ".mp4")
+        return video_title + ".mp4"
+    
 #weburl download------------------------------------------------------------------------------
 
 #Does the url contain a downloadable resource
