@@ -14,6 +14,7 @@ License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENS
 
 import os
 import pathlib
+import youtube_dl
 from youtube_dl import YoutubeDL
 
 #rename files
@@ -42,9 +43,10 @@ def youtube(url):
         "outtmpl": "%(title)s.%(ext)s",
         "format": "best",
         "quiet": True }
-    YoutubeDL(options).download([url])
-    info = YoutubeDL({}).extract_info(url=url, download=False)
-    title = info["title"]
-    ext = info["ext"]
-    file = title + "." + ext
-    return file
+    with youtube_dl.YoutubeDL(options) as ydl:
+        ydl.download([url])
+        info = ydl.extract_info(url, download=False)
+        title = info.get("title", None) 
+        ext = info.get("ext", None) 
+        file = title + "." + ext
+        return file
