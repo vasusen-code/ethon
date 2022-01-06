@@ -49,6 +49,8 @@ Usage
 
 .. code:: python
 
+    from ethon.uploader import download_from_youtube, ytdl, weburl
+    
     #Download videos from youtube
     filename = download_from_youtube(url)
     
