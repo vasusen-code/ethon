@@ -1,7 +1,8 @@
 ethon
 =====
 
-| logo |
+• Telegram_
+• Github_
 
 install
 =======
@@ -46,3 +47,5 @@ install
     width = data["width"]
     duration = data["duration"]
 
+.. _Telegram: https://t.me/MaheshChauhan
+.. _Github : https://Github.com/Vasusen-code
