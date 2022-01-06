@@ -26,6 +26,7 @@ requirements = [
     "aiohttp",
     "opencv-python-headless",
     "yt_dlp",
+    "youtube_dl",
     "requests",
 ]
 
