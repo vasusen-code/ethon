@@ -15,7 +15,7 @@ install
 
 .. code:: python
 
-    from ethon.pyutils import rename, file_extension, youtube
+    from ethon.pyutils import rename, file_extension, download_from_youtube
     
     #rename files
     file = 'name of your file'
