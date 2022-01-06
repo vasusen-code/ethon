@@ -26,9 +26,6 @@ install
     path = 'path of your file'
     extension = file_extension(path)
     
-    #Download videos from youtube
-    filename = download_from_youtube(url)
-
 ``ethon.pyfunc``
 
 .. code:: python
@@ -46,6 +43,19 @@ install
     height = data["height"]
     width = data["width"]
     duration = data["duration"]
+    
+``ethon.uploader``
+
+.. code:: python
+
+    #Download videos from youtube
+    filename = download_from_youtube(url)
+    
+    #Download videos from YtDlp supported sites
+    filename = ytdl(url)
+    
+    #Download files from the web
+    filenme = weburl(url)
 
 .. _Telegram: https://t.me/MaheshChauhan
 .. _Github : https://Github.com/Vasusen-code
