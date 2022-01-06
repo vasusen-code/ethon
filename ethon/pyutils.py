@@ -35,10 +35,6 @@ def Q_length(List, limit):
         return length
     
 #Download videos from youtube
-import os
-from youtube_dl import YoutubeDL
-
-#For youtube videos download
 def youtube(url):    
     options = {
         "nocheckcertificate": True,
@@ -46,7 +42,6 @@ def youtube(url):
         "outtmpl": "%(title)s.%(ext)s",
         "format": "best",
         "quiet": True }
-    options["postprocessors"] = [{"key": "FFmpegMetadata"}]
     YoutubeDL(options).download([url])
     info = YoutubeDL({}).extract_info(url=url, download=False)
     title = info["title"]
