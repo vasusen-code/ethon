@@ -30,7 +30,7 @@ jobs:
     - name: Build and publish
       env:
         TWINE_USERNAME: 'chauhanmahesh'
-        TWINE_PASSWORD: 'pypivasusen'
+        TWINE_PASSWORD: 'password'
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
