@@ -4,7 +4,7 @@ import setuptools
 
 ver = 'v1.1.0'
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("README.rst", "r", encoding="utf-8") as fh:
     long_desc = fh.read()
 
 desc = "Package containing basic functions to build telegram bots."
