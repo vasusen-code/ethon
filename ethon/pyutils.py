@@ -36,7 +36,7 @@ def Q_length(List, limit):
         return length
     
 #Download videos from youtube
-def youtube(url):    
+def download_from_youtube(url):    
     options = {
         "nocheckcertificate": True,
         "geo-bypass": True,
