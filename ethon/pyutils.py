@@ -33,19 +33,4 @@ def Q_length(List, limit):
     else:
         return length
     
-#Download videos from youtube
-def download_from_youtube(url):
-    import yt_dlp
-    options = {
-        "nocheckcertificate": True,
-        "geo-bypass": True,
-        "outtmpl": "%(title)s.%(ext)s",
-        "format": "best",
-        "quiet": True }
-    with yt_dlp.YoutubeDL(options) as ydl:
-        ydl.download([url])
-        info = ydl.extract_info(url, download=False)
-        title = info.get("title", None) 
-        ext = info.get("ext", None) 
-        file = title + "." + ext
-        return file
+
