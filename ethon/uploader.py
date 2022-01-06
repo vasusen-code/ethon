@@ -2,63 +2,37 @@ import yt_dlp
 import requests
 import re
 import os
+import subprocess
+
+def bash(cmd):    
+    bashCommand = f"{cmd}"
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE) 
+    output, error = process.communicate()
+    return output, error
 
 #Download videos from youtube-------------------------------------------------------------------------------------------
 def download_from_youtube(url):
-    options = {
-        "prefer_ffmpeg": True,
-        "nocheckcertificate": True,
-        "geo-bypass": True,
-        "outtmpl": "%(title)s.%(ext)s",
-        "format": "best",
-        "quiet": True }
-    with yt_dlp.YoutubeDL(options) as ydl:
-        ydl.download([url])
+    bash(f'yt-dlp -f best --no-warnings -o %(title)s.%(ext)s {url}')
+    with yt_dlp.YoutubeDL({}) as ydl:
         info = ydl.extract_info(url, download=False)
         video_title = info.get("title", None)
         video_ext = info.get("ext", None) 
-        try:
-            os.rename(video_title + '.' + video_ext, video_title + ".mp4")
-        except FileNotFoundError:
-            os.rename(video_title + '.' + video_ext * 2, video_title + ".mp4")
-        return video_title + ".mp4"
-      
+        return video_title + "." + video_ext
+    
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
 
-#logging
-class YTLogger:
-    def debug(self, msg):
-        if msg.startswith('[debug] '):
-            pass
-        else:
-            self.info(msg)
-
-    def info(self, msg):
-        pass
-
-    def warning(self, msg):
-        pass
-
-    def error(self, msg):
-        print(msg)
-        
-ydlp_opts={'logger': YTLogger(),
-          'outtmpl': '%(title)s.%(ext)s',
-          'no_warnings': True, 
-          'quiet': True,
-          'geo-bypass': True}
-
 def ytdl(url):
-    with yt_dlp.YoutubeDL(ydlp_opts) as ydl:
-        ydl.download([url])
+    if 'HLS' in url:
+        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
+    elif 'm3u8' in url:
+        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
+    else:
+        bash(f'yt-dlp -f best --no-warnings -o %(title)s.%(ext)s {url}')
+    with yt_dlp.YoutubeDL({}) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
-        try:
-            os.rename(video_title + '.' + video_ext, video_title + ".mp4")
-        except FileNotFoundError:
-            os.rename(video_title + '.' + video_ext * 2, video_title + ".mp4")
-        return video_title + ".mp4"
+        return video_title + "." + video_ext
     
 #weburl download------------------------------------------------------------------------------
 
