@@ -2,7 +2,7 @@ import re
 import os
 import setuptools
 
-ver = 'v1.0.7'
+ver = 'v1.0.8'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_desc = fh.read()
@@ -25,6 +25,7 @@ requirements = [
     "aiofiles",
     "aiohttp",
     "opencv-python-headless",
+    "youtube_dl",
 ]
 
 
