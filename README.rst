@@ -27,7 +27,7 @@ install
     extension = file_extension(path)
     
     #Download videos from youtube
-    filename = youtube(url)
+    filename = download_from_youtube(url)
 
 ``ethon.pyfunc``
 
