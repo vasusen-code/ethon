@@ -15,8 +15,8 @@ def download_from_youtube(url):
     with yt_dlp.YoutubeDL(options) as ydl:
         ydl.download([url])
         info = ydl.extract_info(url, download=False)
-        title = info.get("title", None)
-        ext = info.get("ext", None) 
+        video_title = info.get("title", None)
+        video_ext = info.get("ext", None) 
         try:
             os.rename(video_title + '.' + video_ext, video_title + ".mp4")
         except FileNotFoundError:
