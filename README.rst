@@ -58,7 +58,7 @@ Usage
     filename = ytdl(url)
     
     #Download files from the web
-    filenme = weburl(url)
+    filename = weburl(url)
 
 .. _Telegram: https://t.me/MaheshChauhan
 .. _Github : https://Github.com/Vasusen-code
