@@ -21,13 +21,10 @@ Usage
     from ethon.pyutils import rename, file_extension
     
     #rename files
-    file = 'name of your file'
-    path = 'new name for your file'
-    rename(file, path) 
+    rename(file, new_path) 
     
     #get file extension using path of file
-    path = 'path of your file'
-    extension = file_extension(path)
+    extension = file_extension(file)
     
 ``ethon.pyfunc``
 
@@ -43,6 +40,7 @@ Usage
     
     #get basic metadata of video
     data = video_metadata(file)
+    
     height = data["height"]
     width = data["width"]
     duration = data["duration"]
