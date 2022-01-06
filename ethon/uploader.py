@@ -1,27 +1,30 @@
 import yt_dlp
+import youtube_dl
 import requests
 import re
+import os
 
-#Download videos from youtube-----------------------------------------------------
+#Download videos from youtube-------------------------------------------------------------------------------------------
 def download_from_youtube(url):
     options = {
         "prefer_ffmpeg": True,
         "nocheckcertificate": True,
         "geo-bypass": True,
-        "outtmpl": "%(id)s.%(ext)s",
+        "outtmpl": "%(id)s.mp4",
         "format": "best",
         "quiet": True }
-    with yt_dlp.YoutubeDL(options) as ydl:
+    with youtube_dl.YoutubeDL(options) as ydl:
         ydl.download([url])
         info = ydl.extract_info(url, download=False)
         title = info.get("title", None)
         id = info.get("id", None)
         ext = info.get("ext", None)
+        ex = "." + options["outtmpl"].split(".")[-1]
         file = title + "." + ext
         try:
-            os.rename(id + ext, file)
+            os.rename(id + ex, file)
         except FileNotFoundError:
-            os.rename(id + ext * 2, file)
+            os.rename(id + ex * 2, file)
         return file
       
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
