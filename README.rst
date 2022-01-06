@@ -1,12 +1,14 @@
-# ethon
+ethon
+=====
 
-#install
+install
+=======
 
 .. code:: python
     
     pip install ethon
 
-`ethon.pyutils`
+``ethon.pyutils``
 
 .. code:: python
 
@@ -24,7 +26,7 @@
     #Download videos from youtube
     filename = youtube(url)
 
-`ethon.pyfunc`
+``ethon.pyfunc``
 
 .. code:: python
 
