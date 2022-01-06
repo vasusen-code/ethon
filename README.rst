@@ -11,6 +11,9 @@ install
     
     pip install ethon
 
+Usage
+=====
+
 ``ethon.pyutils``
 
 .. code:: python
