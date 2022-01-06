@@ -12,27 +12,27 @@ def bash(cmd):
 
 #Download videos from youtube-------------------------------------------------------------------------------------------
 def download_from_youtube(url):
-    bash(f'yt-dlp -f best --no-warnings -o %(title)s.%(ext)s {url}')
+    bash(f'yt-dlp -f best --no-warnings -o ./yt/%(title)s.%(ext)s {url}')
     with yt_dlp.YoutubeDL({}) as ydl:
         info = ydl.extract_info(url, download=False)
         video_title = info.get("title", None)
         video_ext = info.get("ext", None) 
-        return video_title + "." + video_ext
+        return "./yt/" + video_title + "." + video_ext
     
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
 
 def ytdl(url):
     if 'HLS' in url:
-        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
+        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o ./yt/%(title)s.%(ext)s {url}')
     elif 'm3u8' in url:
-        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
+        bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o ./yt/%(title)s.%(ext)s {url}')
     else:
-        bash(f'yt-dlp -f best --no-warnings -o %(title)s.%(ext)s {url}')
+        bash(f'yt-dlp -f best --no-warnings -o ./yt/%(title)s.%(ext)s {url}')
     with yt_dlp.YoutubeDL({}) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
-        return video_title + "." + video_ext
+        return "./yt/" + video_title + "." + video_ext
     
 #weburl download------------------------------------------------------------------------------
 
