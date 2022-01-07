@@ -22,7 +22,7 @@ async def download_from_youtube(url):
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
         file = f"{video_title}.{video_ext}"
-        os.rename(o, file) 
+        os.rename(os.path(o), file) 
         return file
     
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ async def ytdl(url):
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
         file = f"{video_title}.{video_ext}"
-        os.rename(o, file) 
+        os.rename(os.path(o), file) 
         return file
     
 #weburl download------------------------------------------------------------------------------
