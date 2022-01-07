@@ -52,10 +52,10 @@ Usage
     from ethon.uploader import download_from_youtube, ytdl, weburl
     
     #Download videos from youtube
-    filename = download_from_youtube(url)
+    filename = await download_from_youtube(url)
     
     #Download videos from YtDlp supported sites
-    filename = ytdl(url)
+    filename = await ytdl(url)
     
     #Download files from the web
     filename = weburl(url)
