@@ -11,32 +11,37 @@ async def bash(cmd):
     stdout, stderr = await process.communicate() 
     e = stderr.decode().strip()
     o = stdout.decode().strip()
-    print(o)
-    print(e)
+    return o, e
     
 #Download videos from youtube-------------------------------------------------------------------------------------------
-def download_from_youtube(url):
-    await bash(f'yt-dlp -f best --no-warnings --prefer-ffmpeg -o %(title)s.%(ext)s {url}')
-    with yt_dlp.YoutubeDL({}) as ydl:
-        info = ydl.extract_info(url, download=False)
-        video_title = info.get("title", None)
-        video_ext = info.get("ext", None) 
-        return f"{video_title}.{video_ext}"
-    
-#for ytdlp supported sites ------------------------------------------------------------------------------------------
-
-def ytdl(url):
-    if 'HLS' in url:
-        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
-    elif 'm3u8' in url:
-        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg -o %(title)s.%(ext)s {url}')
-    else:
-        await bash(f'yt-dlp -f best --prefer-ffmpeg --no-warnings -o %(title)s.%(ext)s {url}')
-    with yt_dlp.YoutubeDL({}) as ydl:
+async def download_from_youtube(url):
+    await bash(f'yt-dlp -f best --no-warnings --prefer-ffmpeg {url} --restrict-filename')
+    o, e = await bash(f'yt-dlp -f best --get-filename {url} --restrict-filename')
+    with yt_dlp.YoutubeDL({'format': 'best'}) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
-        return f"{video_title}.{video_ext}"
+        file = f"{video_title}.{video_ext}"
+        os.rename(o, file) 
+        return file
+    
+#for ytdlp supported sites ------------------------------------------------------------------------------------------
+
+async def ytdl(url):
+    if 'HLS' in url:
+        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url} --restrict-filename')
+    elif 'm3u8' in url:
+        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url} --restrict-filename')
+    else:
+        await bash(f'yt-dlp -f best --prefer-ffmpeg --no-warnings {url} --restrict-filename')
+    o, e = await bash(f'yt-dlp -f best --get-filename {url} --restrict-filename')
+    with yt_dlp.YoutubeDL({'format': 'best'}) as ydl:
+        info_dict = ydl.extract_info(url, download=False)
+        video_title = info_dict.get('title', None) 
+        video_ext = info_dict.get('ext', None) 
+        file = f"{video_title}.{video_ext}"
+        os.rename(o, file) 
+        return file
     
 #weburl download------------------------------------------------------------------------------
 
