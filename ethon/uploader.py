@@ -15,32 +15,32 @@ async def bash(cmd):
     
 #Download videos from youtube-------------------------------------------------------------------------------------------
 async def download_from_youtube(url):
-    await bash(f'yt-dlp -f best --no-warnings --prefer-ffmpeg {url} --restrict-filename')
-    o, e = await bash(f'yt-dlp -f best --get-filename {url} --restrict-filename')
+    await bash(f'yt-dlp -f best --no-warnings --prefer-ffmpeg {url}')
+    o, e = await bash(f'yt-dlp -f best --get-filename {url}')
     with yt_dlp.YoutubeDL({'format': 'best'}) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
         file = f"{video_title}.{video_ext}"
-        os.rename(f'{o}', file) 
+        os.rename(f"{o}", file) 
         return file
     
 #for ytdlp supported sites ------------------------------------------------------------------------------------------
 
 async def ytdl(url):
     if 'HLS' in url:
-        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url} --restrict-filename')
+        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url}')
     elif 'm3u8' in url:
-        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url} --restrict-filename')
+        await bash(f'yt-dlp -f best --no-warnings --hls-prefer-ffmpeg {url}')
     else:
-        await bash(f'yt-dlp -f best --prefer-ffmpeg --no-warnings {url} --restrict-filename')
-    o, e = await bash(f'yt-dlp -f best --get-filename {url} --restrict-filename')
+        await bash(f'yt-dlp -f best --prefer-ffmpeg --no-warnings {url}')
+    o, e = await bash(f'yt-dlp -f best --get-filename {url}')
     with yt_dlp.YoutubeDL({'format': 'best'}) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('title', None) 
         video_ext = info_dict.get('ext', None) 
         file = f"{video_title}.{video_ext}"
-        os.rename(f'{o}', file) 
+        os.rename(f"{o}", file) 
         return file
     
 #weburl download------------------------------------------------------------------------------
