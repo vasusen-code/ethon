@@ -127,6 +127,6 @@ async def force_sub(client, channel, id):
     except UserNotParticipantError:
         username = (await client.get_entity(channel)).username
         s, r = True, f"To use this bot you've to join {username}.\n\nAlso join @DroneBots" 
-    except Excpetion:
+    except Exception:
         s, r = True, "ERROR: Add in ForceSub channel, or check your channel id."
     return s, r
