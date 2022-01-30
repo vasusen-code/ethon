@@ -114,7 +114,7 @@ async def fast_download(filename, file, bot, event, time, msg):
 """
 
 #Forcesub
-async def force_sub(clien, channel, id):
+async def force_sub(client, channel, id):
     s, r = False, None
     try:
         x = await Drone(GetParticipantRequest(channel=int(channel), participant=int(id)))
