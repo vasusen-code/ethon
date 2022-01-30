@@ -117,16 +117,16 @@ async def fast_download(filename, file, bot, event, time, msg):
 async def force_sub(client, channel, id):
     s, r = False, None
     try:
-        x = await Drone(GetParticipantRequest(channel=int(channel), participant=int(id)))
+        x = await Drone(GetParticipantRequest(channel=f'{channel}', participant=int(id)))
         left = x.stringify()
         if 'left' in left:
             username = (await client.get_entity(channel)).username
-            s, r = True, f"To use this bot you've to join {username}.\n\nAlso join @DroneBots"
+            s, r = True, f"To use this bot you've to join @{channel}.\n\nAlso join @DroneBots"
         else:
             s, r = False, None
     except UserNotParticipantError:
         username = (await client.get_entity(channel)).username
-        s, r = True, f"To use this bot you've to join {username}.\n\nAlso join @DroneBots" 
+        s, r = True, f"To use this bot you've to join @{channel}.\n\nAlso join @DroneBots" 
     except Exception:
         s, r = True, "ERROR: Add in ForceSub channel, or check your channel id."
     return s, r
