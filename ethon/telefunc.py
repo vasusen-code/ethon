@@ -120,7 +120,6 @@ async def force_sub(client, channel, id):
         x = await Drone(GetParticipantRequest(channel=f'{channel}', participant=int(id)))
         left = x.stringify()
         if 'left' in left:
-            username = (await client.get_entity(channel)).username
             s, r = True, f"To use this bot you've to join @{channel}.\n\nAlso join @DroneBots"
         else:
             s, r = False, None
