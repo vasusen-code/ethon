@@ -1,6 +1,6 @@
 #ignore this file
 
-from telethon import events
+from telethon import events, Button
 
 
 async def start_srb(event):
