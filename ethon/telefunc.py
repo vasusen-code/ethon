@@ -5,6 +5,8 @@ import asyncio
 from .FasterTg import upload_file, download_file
 
 from telethon import events
+from telethon.errors.rpcerrorlist import UserNotParticipantError
+from telethon.tl.functions.channels import GetParticipantRequest
 
 
 #Fast upload/download methods:
@@ -110,3 +112,21 @@ async def fast_download(filename, file, bot, event, time, msg):
 """
 ---------------------------------------------------------------------------------
 """
+
+#Forcesub
+async def force_sub(clien, channel, id):
+    s, r = False, None
+    try:
+        x = await Drone(GetParticipantRequest(channel=int(channel), participant=int(id)))
+        left = x.stringify()
+        if 'left' in left:
+            username = (await client.get_entity(channel)).username
+            s, r = True, f"To use this bot you've to join {username}.\n\nAlso join @DroneBots"
+        else:
+            s, r = False, None
+    except UserNotParticipantError:
+        username = (await client.get_entity(channel)).username
+        s, r = True, f"To use this bot you've to join {username}.\n\nAlso join @DroneBots" 
+    except Excpetion:
+        s, r = True, "ERROR: Add in ForceSub channel, or check your channel id."
+    return s, r
