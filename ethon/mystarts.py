@@ -3,8 +3,8 @@
 from telethon import events, Button
 
 
-async def start_srb(event):
-    await event.reply("Send me Link of any message to clone it here, For private channel message, send invite link first.\n\n**SUPPORT:** @TeamDrone", 
+async def start_srb(event, st):
+    await event.reply(st, 
                       buttons=[
                               [Button.inline("SET THUMB.", data="set"),
                                Button.inline("REM THUMB.", data="rem")],
