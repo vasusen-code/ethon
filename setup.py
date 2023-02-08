@@ -21,10 +21,9 @@ classify = [
 ]
 requirements = [
     "python-decouple",
-    "telethon",
+    "telethon","requests"]
 
-    "requests",
-]
+
 
 
 setuptools.setup(
