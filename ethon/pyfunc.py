@@ -24,13 +24,6 @@ def total_frames(video_path):
     tf = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) 
     return tf        
 
-#makes a subprocess handy
-def bash(cmd):    
-    bashCommand = f"{cmd}"
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE) 
-    output, error = process.communicate()
-    return output, error
-
 #to get width, height and duration(in sec) of a video
 def video_metadata(file):
     break
