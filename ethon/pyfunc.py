@@ -33,4 +33,4 @@ def bash(cmd):
 
 #to get width, height and duration(in sec) of a video
 def video_metadata(file):
-    print('pyrogram.exceptions
+    break
