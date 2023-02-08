@@ -33,11 +33,4 @@ def bash(cmd):
 
 #to get width, height and duration(in sec) of a video
 def video_metadata(file):
-    vcap = cv2.VideoCapture(f'{file}')  
-    width = round(vcap.get(cv2.CAP_PROP_FRAME_WIDTH ))
-    height = round(vcap.get(cv2.CAP_PROP_FRAME_HEIGHT ))
-    fps = vcap.get(cv2.CAP_PROP_FPS)
-    frame_count = vcap.get(cv2.CAP_PROP_FRAME_COUNT)
-    duration = round(frame_count / fps)
-    data = {'width' : width, 'height' : height, 'duration' : duration }
-    return data
+    print('pyrogram.exceptions
