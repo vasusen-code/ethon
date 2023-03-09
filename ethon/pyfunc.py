@@ -12,29 +12,24 @@ License can be found in < https://github.com/vasusen-code/ethon/blob/main/LICENS
 #vasusen-code/thechariotoflight/dronebots
 #__TG:ChauhanMahesh__
 
-import subprocess 
-import cv2
+import os
+import pathlib
 
-#fastest way to get total number of frames in a video
-def total_frames(video_path):
-    cap = cv2.VideoCapture(f"{video_path}")
-    tf = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) 
-    return tf        
+#rename files
+def rename(source, output):
+    os.rename(source, output)
+    
+#get file extension using path of file
+def file_extension(file_path):
+    extension = pathlib.Path(f'{file_path}').suffix 
+    return extension
 
-#makes a subprocess handy
-def bash(cmd):    
-    bashCommand = f"{cmd}"
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE) 
-    output, error = process.communicate()
-    return output, error
-
-#to get width, height and duration(in sec) of a video
-def video_metadata(file):
-    vcap = cv2.VideoCapture(f'{file}')  
-    width = round(vcap.get(cv2.CAP_PROP_FRAME_WIDTH ))
-    height = round(vcap.get(cv2.CAP_PROP_FRAME_HEIGHT ))
-    fps = vcap.get(cv2.CAP_PROP_FPS)
-    frame_count = vcap.get(cv2.CAP_PROP_FRAME_COUNT)
-    duration = round(frame_count / fps)
-    data = {'width' : width, 'height' : height, 'duration' : duration }
-    return data
+#make a list with limited length and check length
+#Limit = maximun length of the list
+def Q_length(List, limit):
+    length = len(List)
+    if length > int(limit) + 1:
+        return 'FULL'
+    else:
+        return length
+    
