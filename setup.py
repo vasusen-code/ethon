@@ -2,7 +2,7 @@ import re
 import os
 import setuptools
 
-ver = 'v69.2'
+ver = 'v0.1.1'
 
 with open("README.rst", "r", encoding="utf-8") as fh:
     long_desc = fh.read()
@@ -21,9 +21,13 @@ classify = [
 ]
 requirements = [
     "python-decouple",
-    "telethon","requests"]
-
-
+    "telethon",
+    "aiofiles",
+    "aiohttp",
+    "opencv-python-headless",
+    "yt_dlp",
+    "requests",
+]
 
 
 setuptools.setup(
