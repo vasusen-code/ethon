@@ -37,4 +37,4 @@ def video_metadata(file):
     frame_count = vcap.get(cv2.CAP_PROP_FRAME_COUNT)
     duration = round(frame_count / fps)
     data = {'width' : width, 'height' : height, 'duration' : duration }
-    return 
+    return data
