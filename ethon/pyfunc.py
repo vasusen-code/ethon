@@ -92,7 +92,7 @@ def video_metadata(file):
                     duration = data["duration"]
                     if duration is None:
                         duration = 0
-        except exception as e:
+        except Exception as e:
             print(e)
             height, width, duration = 720, 1280, 0
     data = {'width' : width, 'height' : height, 'duration' : duration }
